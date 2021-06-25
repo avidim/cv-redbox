@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ChangePassController;
+use App\Http\Controllers\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['prefix' => 'password', 'as' => 'changepass'], function () {
+Route::group(['prefix' => 'password', 'as' => 'changepass', 'middleware' => 'can:change-pass'], function () {
     Route::get('/change', [ChangePassController::class, 'showForm']);
     Route::post('/change', [ChangePassController::class, 'updatePass']);
+});
+
+Route::group(['prefix' => 'clients', 'middleware' => 'can:view-add-clients'], function () {
+    Route::get('/', [ClientController::class, 'index'])->name('clients');
+    Route::post('/add', [ClientController::class, 'store']);
 });

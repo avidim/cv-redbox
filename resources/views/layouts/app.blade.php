@@ -33,12 +33,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('changepass') }}">{{ __('Profile') }}</a>
-                        </li>
-                        @can('view-clients')
+                        @auth
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ '' }}">{{ __('Clients') }}</a>
+                                <a class="nav-link" href="{{ route('changepass') }}">{{ __('Profile') }}</a>
+                            </li>
+                        @endauth
+                        @can('view-add-clients')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('clients') }}">{{ __('Clients') }}</a>
                             </li>
                         @endcan
                     </ul>
