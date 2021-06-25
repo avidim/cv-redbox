@@ -12,6 +12,11 @@
                 </ul>
             </div>
         @endif
+        @if (session('message'))
+            <div class="alert alert-success" role="alert">
+                {{ session('message') }}
+            </div>
+        @endif
         <button class="col-md-12 btn btn-success" onclick="$('#add-client').show()">Add Client</button>
         <div class="col-md-12">
             <table class="table">
@@ -22,6 +27,7 @@
                         <th scope="col">Phone</th>
                         <th scope="col">Request count</th>
                         <th scope="col">Purchase sum</th>
+                        <th scope="col">Unique link</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +38,13 @@
                             <td>{{ $client->phone }}</td>
                             <td>{{ $client->request_count }}</td>
                             <td>{{ $client->purchase_sum }}</td>
+                            <td>
+                                @if($client->link)
+                                    <a href="{{ request()->root() . '/link/' . $client->link }}">{{ $client->link }}</a>
+                                @else
+                                    ''
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

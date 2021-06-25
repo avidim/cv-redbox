@@ -27,7 +27,13 @@ class ClientController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'phone' => 'required'
+            'phone' => 'required|numeric'
         ]);
+
+        $client = Client::create($request->all());
+        $client->link = Str::random(12);
+        $client->save();
+
+        return back()->with('message', 'Client added succesfully!');
     }
 }

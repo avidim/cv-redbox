@@ -32,3 +32,21 @@ Route::group(['prefix' => 'clients', 'middleware' => 'can:view-add-clients'], fu
     Route::get('/', [ClientController::class, 'index'])->name('clients');
     Route::post('/add', [ClientController::class, 'store']);
 });
+
+Route::group(['prefix' => 'link'], function () {
+    Route::get('/{id}', function ($id) {
+        $client = \App\Models\Client::where('link', $id)->first();
+        if (in_array(($client->request_count + 1) % 10, [0, 3, 5, 8])) {
+            request()->session()->flash('message', 'Hooray! You got the discount!');
+        }
+        return view('link');
+    });
+    Route::post('/{id}', function ($id) {
+        request()->validate([ 'purchase' => 'required|numeric' ]);
+        $client = \App\Models\Client::where('link', $id)->first();
+        $client->increment('request_count');
+        $client->increment('purchase_sum', request('purchase'));
+        
+        return back()->with('message', 'Purchase has been made!');
+    });
+});
