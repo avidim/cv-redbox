@@ -11,7 +11,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected static $IS_ADMIN = 1;
+    public const IS_ADMIN = 1;
 
     /**
      * The attributes that are mass assignable.

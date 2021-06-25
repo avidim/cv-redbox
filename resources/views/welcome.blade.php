@@ -35,7 +35,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         @if (Route::has('login'))
                                 @auth
-                                    <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
+                                    <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
                                 @else
                                     <div class="p-6">
                                         <div class="flex items-center">

@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    Hello {{ Auth::user()->name }}{{ Auth::user()->role == \App\Models\User::IS_ADMIN ? '(Administrator)' : '' }}
                 </div>
             </div>
         </div>

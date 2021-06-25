@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\ChangePassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['prefix' => 'password', 'as' => 'changepass'], function () {
+    Route::get('/change', [ChangePassController::class, 'showForm']);
+    Route::post('/change', [ChangePassController::class, 'updatePass']);
+});
