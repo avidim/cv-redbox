@@ -12,8 +12,13 @@
                 </ul>
             </div>
         @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         @if (session('message'))
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success">
                 {{ session('message') }}
             </div>
         @endif
@@ -41,8 +46,6 @@
                             <td>
                                 @if($client->link)
                                     <a href="{{ request()->root() . '/link/' . $client->link }}">{{ $client->link }}</a>
-                                @else
-                                    ''
                                 @endif
                             </td>
                         </tr>

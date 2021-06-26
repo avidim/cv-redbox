@@ -46,7 +46,6 @@ Route::group(['prefix' => 'link'], function () {
         $client = \App\Models\Client::where('link', $id)->first();
         $client->increment('request_count');
         $client->increment('purchase_sum', request('purchase'));
-        
         return back()->with('message', 'Purchase has been made!');
     });
 });
